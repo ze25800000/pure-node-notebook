@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 let getPath = url => path.resolve(process.cwd(), 'public', `.${url}`);
-let staticFunc = (url, callback) => {
+let staticFunc = (url) => {
   let map = {
     '/': '/index.html',
     '/about': '/about.html',
@@ -17,8 +17,16 @@ let staticFunc = (url, callback) => {
    body = `NOT FOUND${error.stack}`;
    }
    return body;*/
-  fs.readFile(_path, (err, data) => {
-    callback(err, data);
-  })
+  /*fs.readFile(_path, (err, data) => {
+   callback(err, data);
+   })*/
+  return new Promise((resolve, reject) => {
+    fs.readFile(_path, (err, data) => {
+      if (err) {
+        reject(err.stack);
+      }
+      resolve(data);
+    });
+  });
 };
 module.exports = staticFunc;

@@ -11,13 +11,20 @@ class App {
       let {url} = req;
       /*let body = staticFunc(url);
        res.end(body);*/
-      staticServer(url, (err, data) => {
-        if (err) {
-          res.end(err.stack);
-        }
-        res.writeHead(200, 'resolve ok', {'X-powered-by': 'Node.js'});
-        res.end(data);
-      })
+      /* staticServer(url, (err, data) => {
+       if (err) {
+       res.end(err.stack);
+       }
+       res.writeHead(200, 'resolve ok', {'X-powered-by': 'Node.js'});
+       res.end(data);
+       });*/
+      staticServer(url)
+        .then((data) => {
+          res.end(data);
+        })
+        .catch((err) => {
+          res.end(err);
+        });
     };
   }
 }

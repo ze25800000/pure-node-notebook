@@ -10,23 +10,13 @@ let staticFunc = (url) => {
   };
   url = map[url] || url;
   let _path = getPath(url);
-  let body = '';
-  /*try {
-   body = fs.readFileSync(_path);
-   } catch (error) {
-   body = `NOT FOUND${error.stack}`;
-   }
-   return body;*/
-  /*fs.readFile(_path, (err, data) => {
-   callback(err, data);
-   })*/
   return new Promise((resolve, reject) => {
     fs.readFile(_path, (err, data) => {
       if (err) {
-        reject(err.stack);
+        reject(err);
       }
       resolve(data);
     });
-  });
+  })
 };
 module.exports = staticFunc;

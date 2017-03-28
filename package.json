@@ -1,0 +1,11 @@
+{
+  "name": "pure-node-notebook",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "supervisor --harmony index.js",
+    "inspect": "nodemon --inspect index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

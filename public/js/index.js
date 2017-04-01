@@ -14,7 +14,11 @@ setTimeout(function () {
   });
   $.ajax({
     url: '/list.action',
-    method: 'get',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(["name", "hello","world"]),
     success: function (arr) {
       var result = arr.map(function (item) {
         return '<li>' + item + '</li>';

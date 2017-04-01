@@ -2,7 +2,9 @@ const path = require('path');
 const fs = require('fs');
 
 let getPath = url => path.resolve(process.cwd(), 'public', `.${url}`);
-let staticFunc = (url) => {
+let staticFunc = (req) => {
+  let {url,method} = req;
+
   let map = {
     '/': '/index.html',
     '/about': '/about.html',

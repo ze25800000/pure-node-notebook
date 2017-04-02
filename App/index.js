@@ -11,34 +11,31 @@ class App {
   initServer() {
     return (req, res) => {
       let {url, method} = req;
-      req.context = {
-        body: '',
-        query: {},
-        method: 'get'
+      let context = {
+        req: req,
+        reqCtx: {
+          body: "",//post请求的数据
+          query: {} //处理客户端的get
+        },
+        res: res,
+        resCtx: {
+          headers: {},// response的返回报文
+          body: '' //返回给前端的内容区
+        }
       };
-      urlParser(req)
+      urlParser(context)
         .then(() => {
-          return apiServer(req)
+          return apiServer(context);
         })
-        .then(val => {
-          if (!val) {
-            return staticServer(req)
-          } else {
-            return val;
-          }
+        .then(() => {
+          return staticServer(context);
         })
-        .then(val => {
-          let body = '';
+        .then(() => {
           let base = {'X-powered-by': 'Node.js'};
-          if (val instanceof Buffer) {
-            body = val;
-          } else {
-            body = JSON.stringify(val);
-            let finalHeader = Object.assign(base, {'Content-Type': 'application/json'});
-            res.writeHead(200, 'resolve ok', finalHeader);
-          }
-          res.end(body)
-        })
+          let {body, headers} = context.resCtx;
+          res.writeHead(200, 'resolve ok', Object.assign(base, headers));
+          res.end(body);
+        });
     };
   }
 }

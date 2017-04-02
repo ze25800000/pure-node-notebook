@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "supervisor --harmony index.js",
-    "inspect": "nodemon --inspect index.js"
+    "inspect": "nodemon --inspect index.js",
+    "test": "nodemon --inspect test/index.js"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

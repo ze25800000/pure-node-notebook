@@ -1,11 +1,25 @@
 const fs = require('fs');
 const path = require('path');
-const staticServer = require("./static-server");
-const apiServer = require('./api');
-const urlParser = require('./url-parser');
+
 
 class App {
   constructor() {
+    this.middlewareArr = [];
+    this.middlewareChain = Promise.resolve();
+  }
+
+  use(middleware) {
+    this.middlewareArr.push(middleware)
+  }
+
+  composeMiddleware(context) {
+    let {middlewareArr} = this;
+    for (let middleware of middlewareArr) {
+      this.middlewareChain = this.middlewareChain.then(() => {
+        return middleware(context);
+      })
+    }
+    return this.middlewareChain;
   }
 
   initServer() {
@@ -23,13 +37,7 @@ class App {
           body: '' //返回给前端的内容区
         }
       };
-      urlParser(context)
-        .then(() => {
-          return apiServer(context);
-        })
-        .then(() => {
-          return staticServer(context);
-        })
+      this.composeMiddleware(context)
         .then(() => {
           let base = {'X-powered-by': 'Node.js'};
           let {body, headers} = context.resCtx;

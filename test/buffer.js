@@ -9,20 +9,18 @@ const fs = require('fs');
 // let test = '窗';
 // console.log(Buffer.from(test))
 
-/*
- let test = '窗';
- let buf3 = Buffer.from([0xe7]);
- let buf4 = Buffer.from([0xaa]);
- let buf5 = Buffer.from([0x97]);
- console.log(Buffer.concat([buf3,buf4,buf5],3).toString())
- */
+ // let test = '窗';
+ // let buf3 = Buffer.from([0xe7]);
+ // let buf4 = Buffer.from([0xaa]);
+ // let buf5 = Buffer.from([0x97]);
+ // console.log(Buffer.concat([buf3,buf4,buf5],3).toString())
 
 let data = fs.createReadStream('./tmp', {
   highWaterMark: 1
 });
 let out = [];
 data.on('data', (chunk) => {
-  console.log(chunk)
+  console.log(chunk);
   out.push(chunk)
 }).on('end', () => {
   console.log(Buffer.concat(out).toString());

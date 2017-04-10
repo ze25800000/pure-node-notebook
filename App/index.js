@@ -33,6 +33,8 @@ class App {
         },
         res: res,
         resCtx: {
+          statusCode: 200,
+          statusMessage: 'resolve ok',
           headers: {},// response的返回报文
           body: '' //返回给前端的内容区
         }
@@ -40,8 +42,8 @@ class App {
       this.composeMiddleware(context)
         .then(() => {
           let base = {'X-powered-by': 'Node.js'};
-          let {body, headers} = context.resCtx;
-          res.writeHead(200, 'resolve ok', Object.assign(base, headers));
+          let {body, headers, statusCode, statusMessage} = context.resCtx;
+          res.writeHead(statusCode, statusMessage, Object.assign(base, headers));
           res.end(body);
         });
     };

@@ -1,3 +1,4 @@
+require('../css/index.scss');
 setTimeout(function () {
   $.ajax({
     url: '/user.action',
@@ -18,7 +19,7 @@ setTimeout(function () {
     headers: {
       'Content-Type': 'application/json'
     },
-    data: JSON.stringify(["name", "hello","world"]),
+    data: JSON.stringify(["name", "hello", "world"]),
     success: function (arr) {
       var result = arr.map(function (item) {
         return '<li>' + item + '</li>';

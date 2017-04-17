@@ -24,7 +24,6 @@ class App {
 
   initServer() {
     return (req, res) => {
-      let {url, method} = req;
       let context = {
         req: req,
         reqCtx: {
@@ -33,6 +32,7 @@ class App {
         },
         res: res,
         resCtx: {
+          hasUser: false,
           statusCode: 200,
           statusMessage: 'resolve ok',
           headers: {},// response的返回报文

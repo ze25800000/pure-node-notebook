@@ -10,6 +10,7 @@ module.exports = (ctx) => {
     '/list.action': ['123', 'hehe', 'nihao'],
     '/user.action': ['apple', 'banana', 'pear', 'orange'],
   };
+
   method = method.toLowerCase();
   return Promise.resolve({
     then: (resolve, reject) => {
